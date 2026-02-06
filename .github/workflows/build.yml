@@ -24,20 +24,20 @@ jobs:
         pip install flet
         pip install -r requirements.txt
 
-    # 3. Flutter 설정 (최신 안정화 버전)
+    # 3. Flutter 설정
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
         channel: 'stable'
 
-    # 4. 앱 빌드하기 (옵션 수정됨: requirements.txt를 자동으로 인식합니다)
+    # 4. 앱 빌드하기
     - name: Build APK
       run: |
         flet build apk --project "ODM News" --product "ODM" --org "com.odm.news" --verbose
 
-    # 5. 파일 업로드
+    # 5. 파일 업로드 (수정됨: 특정 경로 대신, 모든 폴더(**)에서 .apk를 찾도록 변경)
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: odm-news-app
-        path: build/app/outputs/flutter-apk/app-release.apk
+        path: "**/*.apk"
