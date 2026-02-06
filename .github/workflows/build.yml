@@ -24,19 +24,18 @@ jobs:
         pip install flet
         pip install -r requirements.txt
 
-    # 3. 안드로이드 빌드 환경 설정 (Flutter)
+    # 3. Flutter 설정 (최신 안정화 버전)
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.19.0'
+        channel: 'stable'
 
-    # 4. 앱 빌드하기 (여기가 핵심!)
-    # requests, beautifulsoup4 등을 앱 안에 포함시킵니다.
+    # 4. 앱 빌드하기 (옵션 수정됨: requirements.txt를 자동으로 인식합니다)
     - name: Build APK
       run: |
-        flet build apk --project "ODM News" --product "ODM" --org "com.odm.news" --include-packages requests,beautifulsoup4,deep-translator
+        flet build apk --project "ODM News" --product "ODM" --org "com.odm.news" --verbose
 
-    # 5. 완성된 파일 업로드 (우리가 다운받을 수 있게)
+    # 5. 파일 업로드
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
